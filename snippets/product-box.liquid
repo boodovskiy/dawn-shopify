@@ -1,0 +1,15 @@
+<!-- snippets/product-box.liquid -->
+{% assign product = all_products[product_handle] %}
+
+{% if product != empty %} 
+<div class="product-box">
+  {% assign full_image_url = product.featured_image | replace: '//', 'https://' %}
+  <a href="{{ product.url }}">
+    <img src="https://matilda-mama.myshopify.com/cdn/shop/{{full_image_url }}" width="100%" height="auto" alt="{{ product.title }}">
+    <h3>{{ product.title }}</h3>
+    <p>{{ product.price | money }}</p>
+  </a>
+</div>
+{% else %}
+<p>Product not found. Check the handle.</p>
+{% endif %}

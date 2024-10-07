@@ -19,7 +19,20 @@
     {{ page.title | escape }}
   </h1>
   <div class="rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    {{ page.content }}
+    {% assign product_handle = page.content | split: '[' | last | split: ':' | last | split: ']' | first %}
+    
+    {% assign opening_shortcode = '[product-box:' %}
+    {% assign closing_shortcode = ']' %}
+    {% assign full_shortcode = opening_shortcode | append: product_handle | append: closing_shortcode %}
+
+    {% assign content_sections = page.content | split: full_shortcode %}
+      
+    {% for section in content_sections %}
+      {{ section }}
+      {% if forloop.last == false %}
+        {% render 'product-box', product_handle: product_handle %}
+      {% endif %}
+    {% endfor %}
   </div>
 </div>
 
