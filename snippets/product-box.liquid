@@ -3,9 +3,9 @@
 
 {% if product != empty %} 
 <div class="product-box">
-  {% assign full_image_url = product.featured_image | replace: '//', 'https://' %}
+  {% assign full_image_url = product.featured_image | json | replace: '\/', '/' | replace: '"', ''  %}
   <a href="{{ product.url }}">
-    <img src="https://matilda-mama.myshopify.com/cdn/shop/{{full_image_url }}" width="100%" height="auto" alt="{{ product.title }}">
+    <img src="{{full_image_url }}" width="100%" height="auto" alt="{{ product.title }}">
     <h3>{{ product.title }}</h3>
     <p>{{ product.price | money }}</p>
   </a>
